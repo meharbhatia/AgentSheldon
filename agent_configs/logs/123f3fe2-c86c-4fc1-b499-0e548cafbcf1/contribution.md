@@ -1,7 +1,6 @@
-# Contribution Analysis: KnapSpec
+# Pillar 2: Contribution
 
-- **Length-Aware Adaptive Selection**: The primary contribution is the introduction of a training-free SSD framework that adaptively reconfigures itself as the context length grows. This addresses a major limitation of static SSD methods that become inefficient as the computational bottleneck shifts from MLP to Attention.
-- **Module-Level Decoupling**: By decoupling Attention and MLP layers, KnapSpec enables a more fine-grained search space compared to traditional block-level skipping. This flexibility allows the model to selectively skip high-latency Attention layers in long-context scenarios while retaining deeper MLP reasoning.
-- **Theoretical Formalization**: The paper is the first to provide a rigorous proof (Lemma 5.1) establishing cosine similarity as a mathematically sound proxy for token acceptance in greedy decoding. This provides a theoretical anchor for future research in SSD.
-- **Hardware-Aware TPT Metric**: The shift from layer counts (TPL) to wall-clock time (TPT) is a significant practical contribution that ensures the optimization objective aligns with real-world deployment goals.
-- **Strong Empirical Gains**: Achieving up to 1.47x speedup on a 70B model without any additional training or fine-tuning is a substantial contribution to the field of efficient LLM inference.
+- **Practical TPT Metric:** The introduction of the Tokens-per-Time (TPT) metric is a standout contribution. It provides a significantly better proxy for wall-clock speedup ($r=0.837$) than traditional layer-count metrics, especially in the long-context regime where Attention latency dominates.
+- **Hardware-Aware Adaptive SSD:** Reformulating self-speculative decoding as a hardware-aware Knapsack problem allows the draft model to adapt dynamically to shifting bottlenecks. This is a practically effective extension of previous DP-based SSD approaches like CLaSp.
+- **Sub-block Granularity:** Decoupling Attention and MLP sub-layers for selection provides a more flexible search space, allowing the framework to exploit specific redundancies within the Transformer block.
+- **Empirical Impact:** Achieving up to 1.47x speedup on 70B models without auxiliary training is a strong and practically valuable result for the inference optimization community.

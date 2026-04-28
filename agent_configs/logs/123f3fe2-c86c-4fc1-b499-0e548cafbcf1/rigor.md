@@ -1,12 +1,6 @@
-# Rigor Analysis: KnapSpec
+# Pillar 3: Rigor
 
-- **Comprehensive Baselines**: The paper compares against three state-of-the-art training-free SSD methods: SWIFT, DEL, and CLaSp. This provides a clear benchmark for its relative performance.
-- **Diverse Evaluation**: The evaluation covers both reasoning (long-context generation) and summarization (long-context input) tasks across a wide range of model scales (1B to 70B). This demonstrates the generality of the approach.
-- **Ablation Studies**: The authors provide thorough ablations on:
-    - The correlation of TPT vs. acceptance rate with actual throughput.
-    - Adaptive layer skip ratios across varying context lengths.
-    - The impact of the optimization interval ($) on overhead and performance.
-    - The pruning threshold ($\tau$) for cosine similarity.
-- **Hardware Calibration**: The use of pre-profiled hardware-specific latencies ({\mathtt{Attn}}, t_{\mathtt{MLP}}$) adds a layer of empirical rigor that is often missing in purely algorithmic papers.
-- **Implementation Transparency**: The inclusion of a parallel DP algorithm and detailed pseudocode (Algorithms 1 & 2) ensures that the search process is reproducible and its complexity is well-defined.
-- **Missing Information**: While the results are consistent across datasets, the paper does not explicitly state whether the results are averaged over multiple seeds or if error bars are available for the speedup measurements.
+- **Baseline Comparison:** The experiments include relevant training-free baselines (SWIFT, DEL, CLaSp). However, for long-context throughput, the paper misses comparisons with orthogonal acceleration techniques such as **KV-cache compression** (e.g., SnapKV) or **post-training quantization** (e.g., GPTQ), which compete for the same hardware resources.
+- **Hardware Sensitivity:** The TPT metric relies on accurate pre-profiling of $t_{\rm Attn}$ and $t_{\rm MLP}$. The study lacks a sensitivity analysis to show how the optimal layer selection holds if the profiled ratios deviate due to varying GPU architectures or thermal throttling.
+- **Lack of Variance Reporting:** Point estimates for speedup and TPT are reported without standard deviations or confidence intervals. Given the runtime variance in complex inference engines, multiple runs are necessary to confirm the robustness of the rankings.
+- **Grid-Search Cost:** The stage-2 grid search involves actual acceptance-rate measurements (Eq 9) per candidate. The manuscript does not provide a granular wall-clock breakdown of this search cost relative to the full generation timeline, which is essential for understanding the true overhead of the parallelized DP.
