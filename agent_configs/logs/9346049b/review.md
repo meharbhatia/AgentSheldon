@@ -1,18 +1,24 @@
 # Review: From Unfamiliar to Familiar: Detecting Pre-training Data via Gradient Deviations in Large Language Models
 
-This paper proposes GDS, a framework for pre-training data detection that leverages gradient features extracted from a zero-initialized LoRA subspace. While the conceptual shift toward optimization-based signals is interesting, the manuscript suffers from fundamental mathematical fallacies and a structurally unfair experimental setup that significantly undermines its claims.
+This paper proposes GDS, a gradient-based framework for pre-training data detection using features extracted from LoRA matrices. While the empirical results show significant improvements over likelihood-based baselines, the methodology relies on a fundamentally flawed interpretation of neural network weight structures and lacks the necessary rigor to account for stochasticity.
 
-## Pillar 1: Correctness
-The most critical technical flaw is the **Latent Space Eccentricity Fallacy** (Eqs. 11 & 12). The authors treat linear weight indices as spatial coordinates to measure "eccentricity," ignoring the fact that hidden dimensions in Transformers are permutation-invariant. Indices carry no topological information, making these spatial metrics mathematically meaningless. Furthermore, there is a stark **theoretical-implementation disconnect**: the framework is motivated by dynamic optimization laws but implemented as a static snapshot at $t=0$, failing to capture the described "evolutionary" behavior.
+## Strengths
+- **Empirical Performance**: The reported AUROC and TPR@5%FPR scores are impressive and consistently outperform strong baselines like Min-k% and FSD across multiple datasets and models.
+- **Efficiency**: Leveraging LoRA gradients for a single backpropagation pass is a computationally efficient way to probe internal model dynamics without requiring full parameter updates.
+- **Artifact Check**: The modification experiment on WikiMIA (removing timestamps) demonstrates a proactive effort to ensure the method is not merely capturing obvious dataset-specific artifacts.
 
-## Pillar 2: Contribution
-The shift to gradient-based detection is a novel positioning move for pre-training MIA, but its significance is diminished by the reliance on flawed features. The reported gains appear to be a product of **supervised learning on labels** rather than the inherent discriminative power of the "Gradient Deviation Scores," as the method is not compared against baseline methods granted equivalent access to calibration data.
+## Weaknesses
+- **The Eccentricity Fallacy**: The "Row/Column Eccentricity" features (Eq. 11-12) assume that neuron indices $i$ and $j$ have spatial meaning relative to a "matrix center." This is mathematically incorrect for linear layers, which are permutation-invariant. Any signal captured by these features is likely a model-specific neuron bias rather than a generalizable "gradient deviation law."
+- **Theoretical-Implementation Disconnect**: The paper motivates the framework using dynamic "evolutionary trends" over 8 epochs, but the proposed method is a static, single-pass measurement at $t=0$. The claim that $t=0$ gradients capture the transition from "unfamiliar to familiar" lacks a rigorous logical bridge.
+- **Unaccounted Stochasticity**: LoRA gradients are functionally dependent on the random initialization of the **A** matrix. The paper does not report results across multiple random seeds or analyze the stability of the feature vectors, leaving the robustness of the method in question.
+- **Biased Comparison**: The GDS method benefits from a supervised MLP classifier trained on 30% of the target data. Comparing this supervised approach to unsupervised or zero-shot baselines like Min-k% without a similarly supervised likelihood control overstates the contribution of the gradient features themselves.
 
-## Pillar 3: Rigor
-The evaluation is characterized by **structural unfairness**: a supervised MLP classifier (GDS) is compared directly against zero-shot heuristics (Min-k%, PPL). Without baseline stratification, the algorithmic advantage of GDS is unproven. Additionally, the lack of variance reporting across multiple LoRA A random seeds and the **violation of double-blind policies** (direct GitHub link in Footnote 1) are significant rigor failures.
+## Questions for the Authors
+1. How do you justify the use of row/column indices in the "Eccentricity" formula, given that neuron ordering in a linear layer is arbitrary?
+2. Why is the motivation based on multi-epoch training dynamics (Section 3) when the actual detection method is a static, one-pass measurement at $t=0$ (Section 4)?
+3. Have you evaluated the stability of the GDS features across different random seeds for the LoRA **A** matrix?
+4. How would a supervised MLP classifier trained purely on token-level likelihoods or PPL distributions compare to your gradient-based approach?
 
-## Pillar 4: Clarity
-The manuscript's narrative is potentially misleading, framing static measurements as "dynamic" and poor transfer performance (~0.66 AUC) as "significantly improved transferability." Notation overloading and splitting of equations further hinder clarity.
-
-## Recommendation: Reject (Score: 3.0)
-The paper rests on a mathematically unsound foundation regarding its "position" features and employs an unfair evaluation framework. Given these fundamental issues and the anonymity violation, the work is not yet suitable for publication at ICML.
+## Recommendation
+**Reject (Score: 2.5)**
+Despite strong empirical numbers, the central methodology is built on a mathematical fallacy (spatial interpretation of latent indices) and a logical disconnect between theory and implementation. The lack of stochasticity analysis further undermines the reliability of the work.
