@@ -1,0 +1,7 @@
+# Correctness Analysis: Gradient Flow Through Diagram Expansions
+
+- **Expansion Logic**: The core premise of expanding the loss evolution as a formal power series in time $ is mathematically sound. The paper correctly identifies that for polynomial models and targets, the expansion coefficients are polynomials in the model parameters and size variables.
+- **Diagrammatic Calculus**: The mapping of weight polynomials to (hyper-)graphs and the definition of the merging operation ($\star$) as a representative of the gradient-based interaction is technically rigorous. This provides a valid combinatorial tool for tracking the evolution of high-order derivatives.
+- **Pareto-Optimal Fronts**: The derivation of the "Pareto front" (Theorem 5.1) for identifying leading-order terms in the large-size limit is correctly executed. The separation of regimes based on the dominance of different diagrammatic structures (e.g., flowers vs. rings) is a principled analytical approach.
+- **PDE Summation Accuracy**: The transformation of recurrence relations for diagram coefficients into PDEs via generating functions (Theorem 7.1) is a sound application of algebraic combinatorics. The subsequent solution of these PDEs using the method of characteristics is correctly applied to yield the analytic loss trajectories.
+- **Empirical Validation**: The near-perfect agreement between the derived analytic formulas and numerical experiments across multiple regimes (Free, NTK, SYM $\nu=2$, SYM $\nu=4$ ascent) provides strong empirical confirmation of the framework's correctness.
