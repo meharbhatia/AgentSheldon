@@ -1,6 +1,6 @@
-# Pillar 2: Contribution
+### Pillar 2: Contribution
 
-- **Practical TPT Metric:** The introduction of the Tokens-per-Time (TPT) metric is a standout contribution. It provides a significantly better proxy for wall-clock speedup ($r=0.837$) than traditional layer-count metrics, especially in the long-context regime where Attention latency dominates.
-- **Hardware-Aware Adaptive SSD:** Reformulating self-speculative decoding as a hardware-aware Knapsack problem allows the draft model to adapt dynamically to shifting bottlenecks. This is a practically effective extension of previous DP-based SSD approaches like CLaSp.
-- **Sub-block Granularity:** Decoupling Attention and MLP sub-layers for selection provides a more flexible search space, allowing the framework to exploit specific redundancies within the Transformer block.
-- **Empirical Impact:** Achieving up to 1.47x speedup on 70B models without auxiliary training is a strong and practically valuable result for the inference optimization community.
+- **Novel Decoupling Strategy**: The primary contribution is the decoupling of Attention and MLP layers in the context of self-speculative decoding (SSD). By recognizing the asymmetric latency scaling of these modules (Attention is (n)$, MLP is (1)$), the paper allows for a more hardware-aware draft model configuration.
+- **Knapsack Reformulation**: Reformulating layer selection as a Knapsack Problem is a logical and effective way to handle the trade-off between latency and accuracy. The use of Dynamic Programming to solve this for all budgets simultaneously is a solid technical contribution.
+- **Hardware-Aware Metric**: The introduction of the Tokens-per-Time (TPT) metric, which incorporates pre-profiled hardware latencies, is a practical improvement over previous layer-based metrics (like TPL), especially as context length grows.
+- **Performance Gains**: The paper demonstrates meaningful wall-clock speedups (up to 1.47x) on competitive models (Llama3.1-70B), which is a significant result for the SSD literature.

@@ -1,6 +1,7 @@
-# Pillar 3: Rigor
+### Pillar 3: Rigor
 
-- **Baseline Comparison:** The experiments include relevant training-free baselines (SWIFT, DEL, CLaSp). However, for long-context throughput, the paper misses comparisons with orthogonal acceleration techniques such as **KV-cache compression** (e.g., SnapKV) or **post-training quantization** (e.g., GPTQ), which compete for the same hardware resources.
-- **Hardware Sensitivity:** The TPT metric relies on accurate pre-profiling of $t_{\rm Attn}$ and $t_{\rm MLP}$. The study lacks a sensitivity analysis to show how the optimal layer selection holds if the profiled ratios deviate due to varying GPU architectures or thermal throttling.
-- **Lack of Variance Reporting:** Point estimates for speedup and TPT are reported without standard deviations or confidence intervals. Given the runtime variance in complex inference engines, multiple runs are necessary to confirm the robustness of the rankings.
-- **Grid-Search Cost:** The stage-2 grid search involves actual acceptance-rate measurements (Eq 9) per candidate. The manuscript does not provide a granular wall-clock breakdown of this search cost relative to the full generation timeline, which is essential for understanding the true overhead of the parallelized DP.
+- **Diverse Benchmarking**: The paper evaluates its method on a wide range of tasks (reasoning and summarization) and models (Qwen3 and Llama3, 1B to 70B parameters). This provides strong evidence for the generalizability of the approach.
+- **Appropriate Baselines**: The comparison includes the most relevant training-free SSD methods (SWIFT, DEL, CLaSp).
+- **Detailed Ablations**: The ablation studies effectively isolate the benefits of TPT over acceptance rate and demonstrate the importance of adaptive layer selection across different context lengths.
+- **Implementation Transparency**: The algorithm is described in detail (Algorithm 1 and 2), which aids in understanding the underlying logic.
+- **Reproducibility Note**: While the paper claims code will be publicly available, the current version lacks a direct link to a repository, which is a minor limitation for immediate verification.

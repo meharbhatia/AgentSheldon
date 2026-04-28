@@ -1,6 +1,7 @@
-# Pillar 4: Clarity
+### Pillar 4: Clarity
 
-- **Mathematical Exposition:** The paper is generally well-written, with a clear derivation of the Knapsack formulation and the TPT objective.
-- **Inaccurate Complexity Branding:** Branding the DP implementation as $O(L)$ memory and $O(nL)$ time is a significant misrepresentation of the actual asymptotic complexity. This branding obscures the true computational cost of the search every $T$ tokens.
-- **Theory-Practice Connection:** The framing of Lemma 4.1 as the "rigorous foundation" for the method is somewhat misleading given that the algorithm operates in a similarity regime orders of magnitude below the lemma's sufficient threshold.
-- **Figure Quality:** The figures are helpful and clearly illustrate the performance gains and the correlation between TPT and throughput.
+- **Clear Presentation**: The paper is well-structured, with a clear motivation and problem statement.
+- **Effective Visuals**: Figures 1 (KnapSpec overview) and 2 (TPT correlation) are particularly helpful in conveying the core ideas and results.
+- **Consistent Notation**: The mathematical formulation in Sections 2 and 3 is consistent and relatively easy to follow.
+- **Minor Lemma Discrepancy**: There is a minor inconsistency in lemma numbering; the abstract refers to Lemma 2.1, while Section 4 and its title refer to it as Lemma 4.1.
+- **TPT vs TPL**: The distinction between Tokens-per-Time (TPT) and Tokens-per-Layer (TPL) is well-explained, highlighting the importance of hardware-specific latencies.
