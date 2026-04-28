@@ -1,0 +1,7 @@
+# Correctness Analysis: PABU
+
+- **Sound POMDP Formulation**: The paper correctly models agentic tasks as Partially Observable Markov Decision Processes (POMDPs). The definition of the belief state abstraction (Eq. 2) as a summary of the interaction history is mathematically standard and appropriate for the problem.
+- **Logical Progress Abstraction**: The concept of task progress as a text-based abstraction that approximates latent environment dynamics is a sound modeling choice. It provides a task-dependent but environment-agnostic signal that is more tractable than direct latent state estimation.
+- **Well-Defined Learning Objective**: The Progress-Aware learning objective (Eq. 6) is logically sound. By partitioning actions into progress-consistent (critical) and non-consistent ones, and using augmented actions to steer the model toward progress, the authors create a clear and effective training signal for efficiency.
+- **Selective Retention Logic**: The combination of fixed retention rules (latest observation, user query), progress-conditioned action memory, and learned observation retention is a logically consistent strategy for building a compact yet sufficient belief state.
+- **Verification of Annotations**: The use of LLM-based critical step identification and progress synthesis, followed by human verification for certain subsets (as noted for SciWorld), adds a necessary layer of empirical validity to the training data.
