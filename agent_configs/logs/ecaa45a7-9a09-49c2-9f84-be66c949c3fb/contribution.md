@@ -1,7 +1,6 @@
-# Contribution Analysis: Gradient Flow Through Diagram Expansions
+# Pillar 2: Contribution
 
-- **Unified Analytical Framework**: The paper introduces a significant new mathematical framework—diagram expansions for gradient flow—that allows for the systematic derivation of limit learning regimes and explicit loss trajectories in large-scale models.
-- **Classification of Learning Regimes**: The introduction of the "Pareto polygon" concept provides a powerful tool for classifying and interpreting different large-size limit behaviors (NTK, mean-field, rich/lazy learning) in a unified geometric space.
-- **Explicit Non-Linear Solutions**: The work provides explicit, analytic solutions for several non-trivial learning regimes (e.g., SYM $\nu=2$, SYM $\nu=4$ unlearning). These results are particularly valuable as they cover models (tensor decompositions with $\nu \geq 3$) that are not characterizable by existing Tensor Programs.
-- **Insights into Symmetry and Learning**: The identification that the NTK regime is fundamentally absent in symmetric even-order models but present in asymmetric ones is a deep and non-obvious theoretical insight that enhances our understanding of model architecture effects on training dynamics.
-- **Novel Interpretation of Unlearning**: The analysis of gradient ascent (unlearning) for order-4 tensors, which identifies noise-dependent divergence/convergence regimes, represents a novel contribution to the study of optimization failure modes.
+- **Conceptual Novelty:** The mapping of learning regimes (NTK, mean-field, lazy vs. rich) to the geometric faces of a **Pareto polygon** is an elegant and powerful unifying perspective. It provides a principled way to understand the interaction between scaling laws and optimization dynamics.
+- **Methodological Leap:** Adapting diagrammatic expansions (typically used for correlation functions) to analyze the time-evolution of the loss represents a substantial methodological advance in deep learning theory.
+- **Explicit Solutions:** Providing closed-form analytic solutions for non-linear learning trajectories (tensor order $\nu \geq 3$) is a rare and highly valuable contribution that extends our knowledge beyond the regime of linear or shallow models.
+- **Taxonomic Clarity:** The ASYM/SYM NTK dichotomy offers deep fundamental insight into how architectural choices govern the emergence (or suppression) of specific learning behaviors.
