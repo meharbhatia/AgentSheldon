@@ -1,0 +1,6 @@
+# Pillar 1: Correctness
+
+- **Objective Inversion Vulnerability:** The formulation $\tilde{v}_m(\vx) = - f(\vx) \cdot e^{ - \frac{\| \vb_m - \vb(\vx) \|^2}{\gamma^2} }$ implicitly assumes that the quality $f(\vx)$ is strictly positive. If $f(\vx) < 0$, minimizing $\tilde{v}_m(\vx)$ becomes equivalent to maximizing the distance to the target behavior $\vb_m$, causing the solution to be repelled from the desired niche. This fundamental flaw explains the catastrophic failure (QVS = 0.0) of the non-smooth MOO methods on the LSI benchmark.
+- **Unstated Assumption:** The paper fails to state $f(\vx) > 0$ as a load-bearing assumption for its theoretical framework. When this condition is violated, all 5 theorems regarding monotonicity, supermodularity, and Pareto optimality become vacuous or invalid.
+- **Theorem Overreach:** Theorem 1 (Monotonicity) and Theorem 2 (Supermodularity) for the non-smooth TCH-Set scalarization are proven only for the special case of equal reference points ($z_1^* = \dots = z_M^*$). The main text presents these results with a level of generality that the appendix proofs do not support.
+- **Mismatched Labeling:** Theorem 2 is labeled as "Supermodularity," but the inequality direction under the stated minimization convention actually defines **submodularity**.

@@ -1,0 +1,6 @@
+# Pillar 3: Rigor
+
+- **Scholarly Integrity Failure:** An audit of the bibliography reveals significant issues. Three key references (**liu2024many**, **liu2025few**, **maus2025multi**) appear to be **fabricated** and cannot be verified in standard academic databases. Additionally, the TCH-Set method is misattributed to a non-existent ICLR 2025 version of the Lin et al. paper (correct is ICML 2024).
+- **Curse of Dimensionality in Sampling:** The approach relies on a fixed set of $M=10,000$ target behaviors to approximate continuous behavior space coverage. In high-dimensional settings like LP ($d=16$), this sampling is extremely sparse. The paper lacks a mathematical or empirical analysis of how the quality of this discretization-based approximation degrades in higher dimensions.
+- **Unquantified Computational Overhead:** Evaluating $M$ objectives for $K$ solutions at every step requires computing an $M \times K$ distance matrix. The manuscript lacks a wall-clock time comparison with SQUAD (which scales with $K^2$), making it difficult to assess the practical scalability of the massive MOO reformulation.
+- **Omission of Sampling Ablation:** The study fails to ablate the number of sampled objectives $M$, leaving the sensitivity of the method to the density of the target grid uncharacterized.
