@@ -1,6 +1,6 @@
-# Pillar 3: Rigor
+### Pillar 3: Rigor
 
-- **Statistical Significance:** The paper reports point estimates for Pass@1 across 109 tasks but lacks **variance reporting** or confidence intervals. Given the sensitivity of physics engines and the stochastic nature of LLM sampling, reporting standard deviations across multiple runs/seeds is essential for validating the leaderboard rankings.
-- **Missing State-Based Ablations:** For the Puzzle subtask, the near-total collapse (success < 3.1%) could be driven by perception limits (3D pose estimation) or planning failures. The study lacks an ablation using ground-truth state information (e.g., providing object coordinates instead of raw pixels) to isolate the root cause of the failure.
-- **Human Baseline Details:** The calibration against two human experts is a small sample size. Furthermore, the manuscript lacks standard ethics documentation regarding informed consent and fair compensation for these participants.
-- **Benchmark Scale:** 109 task instances is relatively small for a benchmark intended to become a community standard, especially for the procedurally generated stacking family where larger scale is easily achievable.
+- **Major Omission: Placeholder Data in Table 3**: Table 3 ("Puzzle subtask failure analysis on CHAIN") contains only placeholders ("--") and a note stating "All values are placeholders." However, the main text in Section 4.2 references specific findings from this analysis (e.g., "many models fail early and stall around the second level"). This is a significant rigor failure for a submitted manuscript, as the evidence for the diagnostic claims is not actually present in the table.
+- **Experimental Breadth**: The evaluation covers a comprehensive set of state-of-the-art models, both closed-source (GPT-5.2, Claude-4.5) and open-source (Qwen3, Kimi-k2.5), ensuring the benchmark's results are representative of the current frontier.
+- **Standardized Protocol**: The use of identical generation hyperparameters and a fixed trajectory history window across all models ensures a fair and reproducible comparison.
+- **Ablation Studies**: The paper includes relevant ablations, such as interactive vs. one-shot solving and the impact of reward models vs. verifiers, which strengthen the methodological foundation.

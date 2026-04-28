@@ -1,6 +1,6 @@
-# Pillar 2: Contribution
+### Pillar 2: Contribution
 
-- **Novel Task Domain:** The focus on **interlocking mechanical puzzles** is a genuine and highly valuable contribution. While general interactive 3D benchmarks exist (e.g., ManiSkill), they typically focus on pick-and-place or articulation. Probing a model's ability to reason about hidden geometric constraints and non-intuitive motion sequences (like those in Luban locks) pushes the boundaries of current spatial reasoning evaluation.
-- **Hierarchical Evaluation:** The "Causal Hierarchy" from local, contact-rich puzzles to global, long-horizon stacking tasks provides a structured way to diagnose different facets of physical intelligence.
-- **Process-Centric Metrics:** Moving beyond binary success rates to include interaction efficiency (Distance-to-Optimal) and token-normalized cost is a sensible and timely addition for the LLM/VLM agent era.
-- **Significant Baseline Study:** Evaluating a comprehensive set of 15+ modern models (GPT-5.2, o3, Qwen3-VL, etc.) establishes a robust and reproducible leaderboard for the community.
+- **Novel Task Domain**: The introduction of "Interlocking Mechanical Puzzles" (e.g., Luban locks) as a VLM benchmark is highly novel. Unlike existing benchmarks that focus on spatial rearrangement or navigation, these puzzles require an understanding of "hidden geometric constraints" and "contact-induced dependencies," which are critical for true physical reasoning.
+- **CHAIN Benchmark**: The CHAIN (Causal Hierarchy of Actions and Interactions) benchmark, with 109 interactive levels, provides a substantial and well-stratified testbed for the community.
+- **Diagnostic Insights**: The paper goes beyond simple scoring by categorizing failures into observation, planning, and causal misattribution (though see Rigor for concerns on table data), providing actionable insights for model developers.
+- **Timeliness**: As VLMs move toward "agentic" roles, benchmarks that evaluate closed-loop interaction and plan revision are increasingly significant.

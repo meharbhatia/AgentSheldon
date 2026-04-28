@@ -1,24 +1,21 @@
 **Strengths**
-
-- **Highly Original Task Domain:** CHAIN introduces interlocking mechanical puzzles (Luban locks) as a benchmark for VLMs. This is a brilliant and demanding choice that isolates structural understanding and geometric lookahead far better than standard pick-and-place tasks.
-- **Process-Centric Evaluation:** The benchmark moves beyond binary success rates to evaluate plan efficiency (Distance-to-Optimal) and cost, providing a more nuanced view of agent behavior.
-- **Comprehensive Baseline Study:** The evaluation of a wide array of state-of-the-art closed and open-source models establishes a clear and valuable performance ceiling for the community.
-- **Scientific Value of Failure Analysis:** The "catastrophic failure" of world models on these puzzles provides a clear direction for future research in physics-grounded video generation.
+- The introduction of the CHAIN benchmark, specifically the "Interlocking Mechanical Puzzles" task, is a significant and novel contribution. It shifts the evaluation of VLMs from simple spatial recognition to complex, constraint-aware structural reasoning.
+- The interactive, closed-loop nature of the benchmark is well-motivated and properly isolated from low-level control issues, focusing squarely on "vision reasoning."
+- The paper provides a comprehensive evaluation of the current state-of-the-art models (GPT-5.2, Claude-4.5, Qwen3, etc.), establishing a high-quality baseline for future work.
+- The comparison between interactive and one-shot settings effectively demonstrates that the benchmark requires iterative feedback and cannot be solved by static pattern matching.
 
 **Weaknesses**
-
-- **Severe Presentation Sloppiness:** The caption for Figure 2 describes an entirely unrelated NLP retrieval pipeline. This level of oversight suggests a lack of thorough proofreading prior to submission.
-- **Double-Blind Policy Violation:** The inclusion of a non-anonymized link to the `social-ai-studio` organization in the abstract potentially reveals the authors' identity, violating the core requirements for double-blind review.
-- **Misrepresented Literature Context:** The manuscript overclaims its novelty by asserting that current VLM evaluations are largely static or 2D, ignoring a vast body of established 3D interactive Embodied AI benchmarks (e.g., ManiSkill, AI2-THOR).
-- **Data Contamination Risk:** The reliance on named classical puzzles (e.g., Kongming locks) introduces a high risk that performance reflects memorized training data rather than true zero-shot visual reasoning.
-- **Lack of Variance Reporting:** Point estimates for success rates across a relatively small set of tasks (109) without confidence intervals or multiple seeds limit the reliability of the rankings.
+- **Incomplete Results (Placeholder Data in Table 3)**: A major weakness is the presence of placeholder data in Table 3 ("All values are placeholders"), despite the text in Section 4.2 discussing specific failure source distributions. This omission makes it impossible for readers to verify the diagnostic claims regarding observation vs. planning vs. causal errors.
+- **Limited Scope of Task Families**: While the two families (Puzzles and Stacking) are high-quality, the benchmark would benefit from a broader set of "causal-chain" tasks as hinted at in the abstract (e.g., dominoes), which are not fully detailed in the main experiments.
+- **Ambiguity in "Catastrophic representational collapse"**: While Figure 5 provides qualitative evidence of representational collapse in world models, a more quantitative metric for "object identity/permanence" during these interactions would strengthen the analysis.
 
 **Questions**
+1. Why does Table 3 contain placeholder values, and can you provide the actual data for the failure source breakdown across the evaluated models?
+2. The abstract mentions "causal-chain manipulation" tasks, but the experiments focus primarily on Puzzles and Stacking. Are there additional task types in CHAIN that were not included in the main table?
+3. For the human-proxy atomic actions, how was the action space defined to ensure it didn't leak "feasible motion" information to the models?
 
-1. Can the authors provide results on procedurally generated or novel interlocking geometries to rule out the possibility of data contamination from classical named puzzles?
-2. How does the benchmark handle potential physics simulation instabilities (e.g., jitter or explosive collision) common in tight-tolerance mechanical joints?
-3. Would the authors consider a state-based ablation to determine if the "near-total collapse" on puzzles is primarily a 3D perception failure or a planning failure?
+**Recommendation**
+The paper presents a timely and high-impact benchmark that addresses a critical gap in VLM evaluation. The "CHAIN" framework is well-designed and the empirical findings regarding the failure of even the strongest models on interlocking puzzles are significant. However, the presence of placeholder data in a key diagnostic table is a serious rigor issue that must be addressed.
 
-**Recommendation: 3 — Weak Reject**
-
-While the interlocking puzzle tasks offer a genuinely novel and challenging testbed for spatial reasoning, the submission's impact is severely hampered by extensive preparation sloppiness and a direct violation of the double-blind review policy.
+**Recommendation: 4 — Weak Accept**
+The contribution is novel and significant, providing a challenging new direction for the field. However, the rigor is undermined by the incomplete data in Table 3.
