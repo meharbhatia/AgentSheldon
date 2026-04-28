@@ -1,27 +1,24 @@
-# Review: Knowledge Graphs are Implicit Reward Models: Path-Derived Signals Enable Compositional Reasoning
+**Strengths**
 
-This paper proposes a novel post-training pipeline that uses Knowledge Graphs (KGs) as implicit reward models to teach LLMs compositional multi-hop reasoning. By rewarding the alignment between a model's reasoning trace and ground-truth KG paths, the authors demonstrate significant gains in zero-shot generalization to complex medical queries.
+- **Principled Paradigm Shift:** The core idea of using Knowledge Graphs (KGs) for automated, verifiable process supervision is a significant conceptual contribution. It provides a scalable alternative to expensive human-in-the-loop annotations for scientific reasoning.
+- **Evidence of Compositional Generalization:** The model's ability to generalize from 1-3 hop training to 4-5 hop reasoning tasks (unseen during training) is a powerful validation of the "compositional bridge" enabled by path-aligned rewards.
+- **Specialized Scale Advantage:** SHOWING that a 14B grounded model can outperform much larger frontier systems like GPT-5.2 and Gemini 3 Pro on specialized tasks demonstrates the high utility of domain-specific post-training.
+- **High Technical Specification:** The manuscript provides commendable detail on most reward constants and training hyperparameters, allowing for a high degree of transparency.
 
-## Strengths
-- **Principled Paradigm Shift**: The core idea of using KGs for automated, verifiable process supervision is a significant conceptual contribution. It provides a scalable alternative to expensive human-in-the-loop annotations.
-- **Evidence of Compositional Generalization**: The model's ability to generalize from 1-3 hop training to 4-5 hop reasoning tasks (unseen during training) is a powerful validation of the "compositional bridge" enabled by path-aligned rewards.
-- **Superior Domain Expertise**: A 14B model outperforming GPT-5.2 and Gemini 3 Pro on complex multi-hop medical tasks is an impressive result, demonstrating that grounded, specialized training can surpass generalist scale.
-- **Empirical Rigor**: The work is supported by extensive ablations, stress tests against format perturbations, and detailed stratification by difficulty and clinical category.
-- **Clarity and Transparency**: The manuscript is exceptionally well-written and provides comprehensive details on data construction, training hyperparameters, and reward formulation.
+**Weaknesses**
 
-## Weaknesses
-- **KG Dependency and Robustness**: The framework's performance is likely sensitive to the quality, completeness, and noise level of the underlying KG. The paper would be strengthened by an analysis of how sparse or incorrect KG facts affect the learning signal.
-- **Entity Extraction Heuristics**: The {path}$ reward relies on token-level intersection between the reasoning trace and path entities. This approach may be sensitive to variations in terminology or paraphrasing, which are common in clinical domains.
-- **Instability of Baseline RL**: The authors noted that RL without a prior SFT phase (Zero-RL) was unstable or ineffective. More detailed discussion on the failure modes of Zero-RL (e.g., linguistic collapse or reward hacking) would provide valuable guidance for the community.
+- **Reward Soundness Concerns:** The $R_{\rm path}$ reward relies on token-level intersection with path entities without verifying relational logic or step order. This heuristic could reward "keyword recall" rather than true logical composition.
+- **Incomplete Baseline Scope:** The evaluation lacks a **domain-RAG baseline** (e.g., frontier model + UMLS retrieval). Without this, it is difficult to isolate whether the 5-hop gains are driven by the reinforcement of reasoning logic or simply by the model's access to structured KG facts.
+- **Double-Blind Policy Violation:** The abstract and linked repository explicitly name the authoring lab ("jha-lab"), which is a direct violation of double-blind review requirements.
+- **Reproducibility Gaps:** The absence of the processed 19.6k/5k data split and serialized KG paths in the public repository hinders independent verification of the 14B results.
+- **Weak Option-Shuffling Test:** Randomizing only distractor order while keeping the correct label constant is an insufficient probe for positional bias in MCQs.
 
-## Questions for the Authors
-1. How does the path alignment reward handle synonyms or semantically similar clinical terms that are not exact token matches with the KG?
-2. Did you observe any specific types of "reward hacking" when using the path-alignment signal, and how did the repetition penalty address them?
-3. How would the performance change if the KG was intentionally made sparse or noisy (e.g., by removing 20% of edges)?
+**Questions**
 
-## Recommendation
+1. Can the authors provide results for a domain-RAG baseline to isolate the marginal benefit of RL-based reasoning reinforcement over simple KG retrieval?
+2. How does the path alignment reward handle cases where a model uses valid medical knowledge that is correct but not present in the specific UMLS triples?
+3. Could the authors clarify the definitions of $\phi_{\rm rep}$ and the scale-vs-clip order in the reward formulation?
 
-This is an excellent paper that provides a clear, scalable, and effective path toward enabling compositional reasoning in specialized domains. The conceptual innovation of using KGs as implicit reward models is well-supported by both theoretical framing and strong empirical results. The work is highly relevant to the ICML community and represents a significant step forward in the study of grounded LLM reasoning.
+**Recommendation: 4 — Weak Accept**
 
-**Recommendation: 5 — Accept**
-Technically solid; high impact on the field of compositional reasoning and domain-specific LLMs; excellent empirical support and clarity.
+The use of KGs for process supervision is a principled and effective idea with strong empirical support for compositional generalization, but the study lacks a domain-RAG baseline to isolate the RL contribution and contains a direct violation of the double-blind policy.
