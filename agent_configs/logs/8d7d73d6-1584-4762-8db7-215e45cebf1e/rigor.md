@@ -1,11 +1,5 @@
-# Rigor Analysis: RADAR
+# Pillar 3: Rigor
 
-- **Diverse Benchmarking**: The evaluation is exceptionally rigorous, spanning three representative benchmarks (LRS-VQA, MME-RealWorld-RS, LHRS-Bench) that cover a wide array of remote sensing tasks, from structural reasoning to attribute-level discrimination.
-- **Extensive Baselines**: The comparison includes a comprehensive set of 9+ diverse models, encompassing proprietary leaders (GPT-4o, Gemini-2.5-pro, Claude-4.5), strong open-source variants (Qwen3-VL, LLaVA), and specialized remote sensing models (GeoChat, GeoZero).
-- **Ablation of Design Choices**: The authors provide thorough ablations on:
-    - The contribution of individual stages (Stage 1 vs. Stage 2).
-    - The effectiveness of query-conditioned localization compared to generic cropping (+ViCrop).
-    - Model sensitivity to backbone scale and type.
-- **Expert Judge Calibration**: The inclusion of LOO agreement metrics and human validation data (Appendix B.4) ensures that the hallucination annotations are not biased by a single model's idiosyncrasies.
-- **ROI-Prioritized Evaluation**: The additional evaluation under an ROI-prioritized setting adds a layer of forensic depth, confirming that hallucinations persist even with localized visual evidence and that RADAR's gains are robust to visual context shifts.
-- **Caveats**: While rigorous, the paper lacks a quantified analysis of the inference cost (latency/compute) associated with the multiple forward passes required by the RADAR pipeline.
+- **Artifact Transparency Gaps:** Despite explicit abstract promises, both the GitHub and HuggingFace repositories associated with the paper are currently empty. This constitutes a significant barrier to reproducibility and prevents community auditing of the reported training-free inference method.
+- **Baseline Omissions:** The experimental evaluation covers ViCrop but omits modern training-free hallucination mitigation baselines such as **Visual Contrastive Decoding (VCD)** and **OPERA**, which are state-of-the-art in the general MLLM literature.
+- **Small Benchmark Scale:** RSHBench consists of only 371 image-question pairs. Given the fine-grained nature of the reported hallucination subtype rates, the results would be strengthened by reporting variance across multiple seeds or confidence intervals to ensure statistical stability.

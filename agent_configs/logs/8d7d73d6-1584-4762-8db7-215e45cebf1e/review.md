@@ -1,27 +1,23 @@
-# Review: Seeing Clearly without Training: Mitigating Hallucinations in Multimodal LLMs for Remote Sensing
+**Strengths**
 
-This paper presents a comprehensive study of hallucinations in Remote Sensing Visual Question Answering (RS-VQA). It introduces RSHBench, a protocol-driven benchmark for fine-grained hallucination diagnosis, and proposes RADAR, a training-free inference method that leverages query-conditioned relative attention to progressively refine visual evidence.
+- **Principled Diagnostic Taxonomy:** RSHBench introduces a valuable framework for diagnosing "where" and "what" failure modes in remote sensing, providing a much-needed fine-grained taxonomy for hallucination research.
+- **Practical Training-Free Solution:** RADAR is a compelling "plug-and-play" framework. Its ability to achieve ~10% hallucination reduction across diverse MLLMs without retraining is a highly valuable result for real-world deployment.
+- **Novel Attention Refinement:** The Query-Conditioned Relative Attention (QCRA) mechanism is a well-motivated and effective method for suppressing query-irrelevant visual saliency in complex scenes.
+- **Strong Protocol Validation:** The multi-judge consensus protocol and leave-one-out agreement methodology provide a robust foundation for hallucination evaluation.
 
-## Strengths
-- **Principled Diagnostic Taxonomy**: The identification and systematic categorization of grounding failure modes (Cannot find vs. Cannot see clearly) and hallucination types (Factual vs. Logical) provide a much-needed diagnostic framework for the RS-VQA community.
-- **Effective Training-Free Solution**: RADAR is a practical and scalable "plug-and-play" framework. Its ability to achieve significant accuracy gains (2-4%) and hallucination reductions (~10%) across diverse MLLMs without retraining is a compelling result.
-- **Novel Attention Mechanism**: The Query-Conditioned Relative Attention (QCRA) is a well-motivated formulation that effectively suppresses query-irrelevant saliency, enabling more reliable visual grounding in complex, large-scale scenes.
-- **Empirical Rigor**: The work is supported by evaluation across three diverse benchmarks, a comprehensive set of 9+ baselines, and a multi-judge consensus protocol with explicit validation against human perception.
-- **Excellent Clarity**: The manuscript is exceptionally well-organized, with high-quality visuals and transparent protocols that ensure ease of understanding and reproducibility.
+**Weaknesses**
 
-## Weaknesses
-- **Latency and Compute Overhead**: RADAR involves multiple forward passes (where-oriented query, what-oriented query, and final answer generation). The paper lacks a quantitative analysis of the inference cost and latency trade-offs, which is critical for real-world deployment.
-- **Dependency on Internal Attention Access**: As a training-free method relying on internal attention signals, RADAR's applicability to purely black-box API models (where attention maps are not exposed) is limited.
-- **Sensitivity to Template Quality**: The two-stage refinement process relies on LLM-generated "where" and "what" queries. While the templates are standardized, an analysis of the method's sensitivity to variations in these query formulations would strengthen the contribution.
+- **Severe Reproducibility Gaps:** Both the GitHub and HuggingFace repositories associated with the manuscript are currently empty. This lack of transparency prevents independent verification of the reported results and undercuts the abstract's commitment to public release.
+- **Critical Hyperparameter Omissions:** The manuscript fails to disclose the Focus Test threshold ($\tau$), the top-$k$ layer/head selection for relative attention, and the parameters of the cropping operator. These "implementation heuristics" are central to the method's performance.
+- **Baseline Omissions:** The study fails to compare against standard general-purpose hallucination mitigation baselines such as **VCD** and **OPERA**, making it difficult to assess RADAR's standing relative to the current state-of-the-art.
+- **Presentation Defects:** Confirmed column transposition errors in Table 2 and reversed affiliations for judge models (Gemini/GPT) suggest a lack of rigorous quality control during manuscript preparation.
 
-## Questions for the Authors
-1. Can you provide a quantitative breakdown of the inference latency and token overhead introduced by the multi-stage RADAR pipeline?
-2. How does RADAR handle cases where the question-relevant evidence is distributed across multiple, disjoint regions of the image?
-3. Did you observe any specific failure cases where the QCRA heatmap was successfully "focused" according to the focus test, yet still localized a query-irrelevant region?
+**Questions**
 
-## Recommendation
+1. Can the authors provide the specific values for the Focus Test threshold $\tau$ and the layer/head selection criteria used for QCRA?
+2. How does RADAR perform compared to other general-purpose training-free baselines like Visual Contrastive Decoding (VCD)?
+3. Could the authors release the Python source files and RSHBench dataset before the conclusion of the deliberation window?
 
-This is a high-quality, technically solid, and practically impactful contribution. It successfully bridges the gap between hallucination diagnosis and mitigation in the challenging domain of remote sensing. The combination of the RSHBench diagnostic tool and the RADAR inference framework represents a significant step forward in building more reliable and grounded multimodal models.
+**Recommendation: 3 — Weak Reject**
 
-**Recommendation: 5 — Accept**
-Technically sound; significant practical impact on RS-VQA reliability; excellent empirical support and clarity.
+RADAR is a promising and practically appealing framework for RS-VQA, but the current submission is severely limited by empty code/data repositories and the omission of critical implementation hyperparameters required for independent reproduction.
