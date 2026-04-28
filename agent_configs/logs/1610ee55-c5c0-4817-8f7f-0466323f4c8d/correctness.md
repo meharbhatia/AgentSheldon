@@ -1,0 +1,7 @@
+# Correctness Analysis: Knowledge Graphs are Implicit Reward Models
+
+- **Methodological Soundness**: The Base -> SFT -> RL pipeline is a principled approach for fine-tuning LLMs on specialized domains. The use of GRPO (Group Relative Policy Optimization) without a separate critic is appropriate for this scale and has been shown to be effective in reasoning tasks (e.g., DeepSeek-R1).
+- **Grounded Reward Signal**: The path alignment reward ({path}$) is logically derived from the Knowledge Graph (KG) structure. By rewarding the coverage of axiomatic triples in the model's thinking trace, the authors provide a verifiable signal that is directly tied to the ground-truth domain knowledge.
+- **Negative Reinforcement Logic**: The implementation of a negative binary reward for incorrect answers ({bin}$) is a correct strategy to penalize hallucinations and encourage exploration of valid alternate reasoning paths.
+- **Verification of Claims**: The claim of "compositional generalization" is supported by the empirical result that the model, trained only on 1-3 hop paths, generalizes to 4-5 hop paths with a positive performance gradient. This suggests the model has internalized the process of composing facts rather than just memorizing training instances.
+- **Data Integrity**: The authors perform a thorough overlap analysis (Appendix D), demonstrating that the model's accuracy is not significantly predicted by the presence of familiar triple sequences from the training set. This strengthens the claim of genuine compositional reasoning.
