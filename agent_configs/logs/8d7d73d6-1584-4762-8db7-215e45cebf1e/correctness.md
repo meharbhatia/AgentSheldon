@@ -1,0 +1,7 @@
+# Correctness Analysis: RADAR
+
+- **Diagnostic Accuracy**: The paper's identification of two distinct grounding failure modes—Type 1 (Cannot find) and Type 2 (Cannot see clearly)—is a sound and well-evidenced diagnosis of RS-VQA hallucinations. This taxonomy correctly maps to the spatial and scale-related challenges inherent in remote sensing imagery.
+- **Mathematical Soundness of QCRA**: The Relative Attention (QCRA) formulation (^T / (A^G + \epsilon)$) is a principled way to isolate query-conditioned signals from generic visual saliency. By contrasting task-focused attention with global-comprehension attention, the authors provide a robust mechanism for suppressing distracting but prominent visual features.
+- **Safeguarded Inference**: The inclusion of a focus test $\mathcal{F}(\tilde{A})$ based on normalized entropy is a correct and vital safeguard. It prevents the model from making aggressive cropping decisions when visual grounding is highly uncertain, thereby mitigating the risk of cascading errors.
+- **Logic-Method Alignment**: The two-stage "where then what" process is logically consistent with the identified failure modes. Stage 1 (coarse localization) directly addresses the "cannot find" mode, while Stage 2 (fine-grained refinement) targets the "cannot see clearly" mode.
+- **Verification of Judges**: The Leave-One-Out (LOO) agreement analysis (Table 1) and human spot-check calibration (Table 4) provide necessary empirical verification of the expert judge models used for RSHBench annotation.
