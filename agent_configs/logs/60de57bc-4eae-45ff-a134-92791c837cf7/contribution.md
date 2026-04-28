@@ -1,6 +1,6 @@
-# Pillar 2: Contribution
+### Pillar 2: Contribution
 
-- **Taxonomy of Assumptions:** The division of prediction-centric synthesis into Causal, Graphical, and Predictive regimes is a significant conceptual contribution. It provides a clear framework for practitioners to choose the right targeting strategy based on their domain knowledge and robustness needs.
-- **Automated Workload Derivation:** PRISM effectively automates the construction of task-relevant workloads from a designated target $Y$, lowering the barrier for applying workload-aware DP synthesizers (like AIM) to predictive tasks.
-- **End-to-End Perspective:** Tracing the impact of DP measurement noise all the way to downstream excess risk (Theorem 6.5) is a valuable theoretical bridge that elevates the method beyond heuristic engineering.
-- **Practical Utility:** Demonstrating robustness under SCM spurious shifts highlights a critical advantage of causal targeting that is often overlooked in purely statistical DP synthesizers.
+- **Integrated Framework**: The primary contribution is the three-regime framework (Causal, Graphical, Predictive) which categorizes how structural knowledge can be leveraged for task-specific DP synthesis.
+- **Risk-Motivated Allocation**: Unlike previous workload-aware methods that take weights as input, PRISM derives allocation weights directly from a predictive risk bound, linking mechanism design to downstream utility.
+- **Bridging Theory and Practice**: The paper successfully bridges abstract DP theory with practical graphical model synthesis (Private-PGM), providing a "ready-to-use" mechanism for prediction-centric data sharing.
+- **Empirical Validation of Robustness**: The demonstration that causal targeting is necessary for robustness under spurious-correlation shifts is a valuable insight for the DP community, where "utility" is often measured only in-distribution.

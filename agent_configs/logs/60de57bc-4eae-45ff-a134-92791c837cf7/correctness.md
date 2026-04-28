@@ -1,6 +1,6 @@
-# Pillar 1: Correctness
+### Pillar 1: Correctness
 
-- **Principled Surrogates:** The use of Total Variation (TV) distance on task-marginal distributions to bound prediction risk is a mathematically sound and well-justified choice. It correctly connects the DP synthesis stage to the downstream learning stage without assuming specific model architectures.
-- **Budget Allocation Logic:** The derivation of the closed-form optimal budget allocation (Theorem 6.5) is correct for minimizing a weighted sum of inverse budgets (noise variance).
-- **Incomplete Optimization:** While the mechanism provides an optimal split *within* measurement pools, the split *between* the selection pool ($\varepsilon_{\rm sel}$) and the synthesis pool ($\varepsilon_{\rm task} + \varepsilon_{\rm bg}$) is hard-coded (e.g., 10%/90%). This contradicts the paper's emphasis on "principled, risk-motivated allocation," as the selection accuracy directly influences the validity of the synthesis workload.
-- **Oracle Dependency:** The strongest correctness results (Regimes 1 and 2) hinge on the availability of ground-truth structural knowledge (Causal Parents or Markov Blanket). While valid in a "guarded" setting, the paper fails to characterize the performance decay when this structure is noisy or partially incorrect.
+- **Principled Risk Bounds**: The connection between total variation (TV) distance on task-relevant marginals and downstream prediction risk (Theorem 6.3) is mathematically sound and standard for distribution-free utility analysis.
+- **Valid Sensitivity Accounting**: The sensitivity for probability vector measurement ($\sqrt{2}/n$ for replace-one neighbors) and the subsequent Gaussian noise calibration are correctly applied.
+- **Closed-form Optimization**: The derivation of the optimal budget allocation (Theorem 6.4) using Lagrangian multipliers is technically correct and provides a principled way to handle heterogeneous feature importance.
+- **Consistency with Causal Theory**: The robustness of Regime 1 (Causal) under spurious shift is consistent with the principle that causal mechanisms are invariant across environments where only marginals or spurious associations change.

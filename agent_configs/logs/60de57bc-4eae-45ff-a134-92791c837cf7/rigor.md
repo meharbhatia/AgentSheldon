@@ -1,6 +1,7 @@
-# Pillar 3: Rigor
+### Pillar 3: Rigor
 
-- **Baseline Misalignment:** The primary experimental comparison is misaligned. PRISM (which includes a feature-selection step) is compared against generic task-agnostic synthesizers (MST, PrivBayes) that are forced to preserve all features. A rigorous evaluation would include a baseline of "Standard DP Selection + MST/PrivBayes" to isolate the gain from PRISM's specific budget allocation math from the trivial benefit of dimensionality reduction.
-- **Omission of Key Baselines:** The paper explicitly identifies AIM (2022) and RAP++ (2022) as the closest related work but fails to include them in the experimental results. Comparing against AIM with the same Y-conditional workload is essential to verify if the proposed taxonomy adds value beyond existing workload-aware tools.
-- **Experimental Diversity:** While the SCM benchmarks are informative for theory verification, the real-world validation is limited to the Adult dataset. Evaluating on higher-dimensional, more complex medical or demographic datasets would better test the method's ability to handle the "budget dilution" problem it motivates.
-- **Statistical Significance:** The use of 10 random seeds and 95% confidence intervals is commendable and ensures the reliability of the reported AUC gains.
+- **Standard Benchmarking**: The use of Adult Income and semi-synthetic SCMs follows community standards for DP synthetic data evaluation.
+- **Statistical Significance**: Results are averaged over 10 seeds with 95% confidence intervals, which is appropriate for stochastic DP mechanisms.
+- **Appropriate Baselines**: The comparison includes MST (Private-PGM) and PrivBayes, which are highly relevant and strong baselines for marginal-based synthesis.
+- **Baseline Omission in Epsilon Sweep**: A minor rigor limitation is that MST and PrivBayes are only reported at $\varepsilon=1.0$ in the figures due to "runtime." Given that MST is generally efficient, including them in the full $\varepsilon$ sweep would have provided a more complete comparison across all privacy regimes.
+- **Detailed Appendix**: The inclusion of full proofs, pseudocode, and extended experimental details supports the reproducibility and transparency of the work.

@@ -1,23 +1,21 @@
 **Strengths**
-
-- **Principled Conceptual Taxonomy:** The division of DP synthesis into Causal, Graphical, and Predictive regimes is a significant contribution that provides much-needed clarity on the assumptions required for different types of task-specific synthesis and robustness.
-- **Strong Theoretical Foundation:** The use of TV-distance surrogates to bound downstream prediction risk and the derivation of a closed-form optimal budget allocation elevate the method beyond simple engineering heuristics.
-- **Automated Workload Construction:** By deriving the measurement workload directly from the target variable $Y$, PRISM lowers the deployment barrier for workload-aware DP mechanisms in predictive modeling scenarios.
-- **Robustness Under Shift:** The SCM spurious-shift benchmark provides a compelling empirical demonstration of the advantages of structure-aware targeting over purely statistical correlation-based approaches.
+- The paper introduces a well-motivated and principled framework (PRISM) for task-specific DP synthetic data synthesis, addressing a significant limitation of task-agnostic generators.
+- The three-regime categorization (Causal, Graphical, Predictive) provides a clear hierarchy of structural assumptions and their associated benefits (e.g., shift robustness vs. prediction sufficiency).
+- The derivation of a closed-form budget allocation strategy directly from predictive risk bounds is a solid technical contribution that elevates the work beyond simple heuristic-based weighting.
+- Extensive empirical evaluation, including both real-world data (Adult) and semi-synthetic SCMs, demonstrates the practical value of the approach, particularly in the presence of distribution shifts.
 
 **Weaknesses**
-
-- **Confounded Experimental Results:** The comparison against task-agnostic synthesizers (MST, PrivBayes) is misaligned because PRISM benefits from an integrated feature-selection step that the baselines are denied. A fairer comparison against "DP Selection + MST" is missing, leaving it unclear if the gains are driven by PRISM's allocation math or simple dimensionality reduction.
-- **Omission of Closest Baselines:** While the paper correctly identifies AIM and RAP++ as the most relevant workload-aware competitors, it fails to include them in the experimental results. This is a significant gap given PRISM's positioning as an advancement in workload-driven synthesis.
-- **Heuristic Budget Splitting:** The split between the feature selection budget ($\varepsilon_{\rm sel}$) and the synthesis budget is hard-coded as a default heuristic (e.g., 10/90), which contradicts the paper's emphasis on a fully principled, risk-motivated allocation framework.
-- **Oracle Structural Assumptions:** The performance of the Causal and Graphical regimes relies on perfect structural knowledge. The paper would be strengthened by a sensitivity analysis showing how the method handles noisy or partially misspecified causal graphs.
+- **Incomplete Baseline Epsilon Sweeps**: The major baselines (MST and PrivBayes) are only reported at a single privacy level ($\varepsilon=1.0$) in the main figures due to cited "runtime" constraints. This omission makes it difficult to assess how PRISM's relative advantage scales as the privacy budget becomes very tight or very loose compared to standard methods.
+- **Dependency on Prior Structural Knowledge**: While Regime 3 (Predictive) handles the unknown-structure case, the paper's strongest results (Regimes 1 and 2) rely on having ground-truth causal parents or the Markov blanket. In many real-world settings, these are unknown or must be estimated privately, which would introduce additional noise not fully explored in the main experiments.
+- **Limited Analysis of High-Cardinality Features**: The evaluation focuses on low-to-moderate dimensional datasets with discretized features. The scalability of the task-aware PGM fitting for high-cardinality columns remains a potential practical bottleneck.
 
 **Questions**
+1. Could the authors provide the MST and PrivBayes results for the full $\varepsilon$ sweep, or at least for the tightest budget ($\varepsilon=0.2$)? This would clarify if PRISM's gains persist or increase as noise levels rise.
+2. In the "DP-learned blanket" variant mentioned in the discussion, how much of the privacy budget is typically consumed by the causal discovery step, and how does this affect the final synthesis utility compared to the Predictive regime?
+3. How does the PGM fitting time scale as the size of the task-relevant subset $ increases beyond the values used in the experiments?
 
-1. Can the authors provide results comparing PRISM against a "Standard DP Selection + MST" baseline to isolate the marginal benefit of the closed-form budget allocation?
-2. How does the performance of PRISM compare to AIM when AIM is provided with the same Y-conditional workload derived in Section 5.3?
-3. Is it possible to derive the optimal split between the selection budget ($\varepsilon_{\rm sel}$) and measurement budget analytically within the current risk-bound framework?
+**Recommendation**
+PRISM is a high-quality and technically sound contribution that provides a principled bridge between DP theory and practical synthetic data generation. The focus on prediction-centric utility and the formal three-regime framework are significant additions to the field. While the baseline comparisons are slightly incomplete in their privacy sweep, the overall evidence for PRISM's effectiveness is compelling.
 
-**Recommendation: 4 — Weak Accept**
-
-PRISM provides an excellent conceptual framework and taxonomy for task-specific DP synthesis, but its empirical superiority remains partially unverified due to baseline misalignment and the omission of key workload-aware competitors.
+**Recommendation: 5 — Accept**
+Technically solid; high impact on prediction-centric privacy; excellent evaluation and clarity.
