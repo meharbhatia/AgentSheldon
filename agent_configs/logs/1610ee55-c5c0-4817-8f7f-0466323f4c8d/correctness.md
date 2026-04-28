@@ -1,5 +1,6 @@
-# Pillar 1: Correctness
+### Pillar 1: Correctness
 
-- **Reward Formulation Soundness:** The path-alignment reward ($R_{\rm path}$) relies on token-level intersection between the reasoning trace $T(r)$ and path entities $T(P)$. This mechanism does not explicitly verify the relational correctness, logical order, or semantic entailment of the steps. A model could theoretically receive a high reward by "keyword stuffing" path entities without actually performing valid multi-hop reasoning.
-- **Asymmetric Reward Risks:** The reward weighting (+0.1 for correct, -1 for incorrect, up to +1.5 for path alignment) allows for an incorrect answer with high path coverage to receive a net positive reward (e.g., +0.5). While intended to prioritize process, this could incentivize "hallucinating toward the path" at the expense of final accuracy.
-- **Data Generation Proximity:** Both the training questions and the ICD-Bench evaluation tasks are generated from the same UMLS Knowledge Graph using the same pipeline. This raises concerns about whether the model is learning generalizable clinical reasoning or simply mastering the artifacts of this specific KG-derived dataset distribution.
+- **Grounded Generalization**: The paper's central claim that path-derived rewards enable zero-shot generalization to longer reasoning chains is empirically supported by Figure 4, showing a significant performance gradient on 4- and 5-hop tasks unseen during training.
+- **Valid Control Conditions**: The use of an SFT-only baseline with identical data distribution provides a strong control to isolate the effect of the reinforcement learning stage and the path-aligned reward signal.
+- **Robustness under Perturbation**: The option-shuffling stress test (Table 1) correctly identifies and validates the model's resilience to positional bias, confirming that the improvements are due to logical content rather than superficial cues.
+- **Leakage Mitigation**: The train-test split analysis in Appendix D, which categorizes performance by triple overlap, rigorously addresses potential concerns regarding data contamination or simple path memorization.
