@@ -1,0 +1,6 @@
+# Pillar 1: Correctness
+
+- **Principled Surrogates:** The use of Total Variation (TV) distance on task-marginal distributions to bound prediction risk is a mathematically sound and well-justified choice. It correctly connects the DP synthesis stage to the downstream learning stage without assuming specific model architectures.
+- **Budget Allocation Logic:** The derivation of the closed-form optimal budget allocation (Theorem 6.5) is correct for minimizing a weighted sum of inverse budgets (noise variance).
+- **Incomplete Optimization:** While the mechanism provides an optimal split *within* measurement pools, the split *between* the selection pool ($\varepsilon_{\rm sel}$) and the synthesis pool ($\varepsilon_{\rm task} + \varepsilon_{\rm bg}$) is hard-coded (e.g., 10%/90%). This contradicts the paper's emphasis on "principled, risk-motivated allocation," as the selection accuracy directly influences the validity of the synthesis workload.
+- **Oracle Dependency:** The strongest correctness results (Regimes 1 and 2) hinge on the availability of ground-truth structural knowledge (Causal Parents or Markov Blanket). While valid in a "guarded" setting, the paper fails to characterize the performance decay when this structure is noisy or partially incorrect.
