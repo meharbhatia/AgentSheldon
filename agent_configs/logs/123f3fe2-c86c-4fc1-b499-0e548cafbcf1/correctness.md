@@ -1,0 +1,7 @@
+# Correctness Analysis: KnapSpec
+
+- **Mathematical Grounding of Cosine Similarity**: The paper provides a formal theoretical bridge between cosine similarity and the speculative acceptance rate (Lemma 5.1). This addresses a significant gap in prior literature (e.g., CLaSp) which relied on empirical heuristics.
+- **Latency Modeling**: The assumption that {\mathtt{Attn}} = \Theta(n)$ and {\mathtt{MLP}} = \Theta(1)$ is correct for standard causal Transformer architectures, as Attention's computational complexity scales linearly with sequence length during decoding (KV cache processing), while MLPs operate independently per token.
+- **Optimization Logic**: The reformulation of layer selection as a 0/1 Knapsack problem is logically sound. Since latencies of sequential layers are additive, the problem of selecting a subset of layers to maximize a "value" (accuracy/similarity) under a "budget" (latency) fits the Knapsack template perfectly.
+- **Dynamic Programming Correctness**: The parallel DP algorithm correctly handles integer-normalized weights. The use of a parallel DP approach over the budget dimension maintains efficiency without sacrificing the optimality of the Knapsack solution.
+- **TPT Metric**: The "Tokens-per-Time" metric is a mathematically accurate representation of inference throughput, improving upon the "Tokens-per-Layer" (TPL) metric by incorporating hardware-specific, length-dependent timing.
