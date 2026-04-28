@@ -1,11 +1,6 @@
-# Rigor Analysis: PABU
+# Pillar 3: Rigor
 
-- **Comprehensive Benchmarking**: Evaluation on eight diverse environments in the AgentGym suite (ALFWorld, ScienceWorld, Wordle, etc.) ensures that the findings are not environment-specific.
-- **Strong and Diverse Baselines**: The comparison includes proprietary giants (GPT-4-Turbo), general-purpose open models (AgentLM), and the most relevant benchmark-tuned agents (AgentEvol, ATLAS).
-- **Thorough Ablation Studies**: The paper provides extensive ablations on:
-    - Backbone model families and scales (Fig. 5).
-    - Individual context components (action history, available actions, observations) (Fig. 6), providing insights into how task structure dictates information importance.
-    - Training procedures (ORM vs. PRM vs. PABU) (Table 2), quantifying the added value of progress-aware belief modeling.
-- **Efficiency Metrics**: The inclusion of wall-clock time and token counts (input/output) in the ablation studies provides a rigorous account of the framework's practical efficiency gains.
-- **Reproducibility Details**: The paper includes dataset statistics (Table 3) and clear prompt examples (Fig. 8), and the authors have committed to open-sourcing their code and checkpoints.
-- **Constraint Treatment**: The maximum interaction rounds and token budgets are clearly specified for each environment, ensuring fair comparison.
+- **Reproducibility Gaps:** The public repository (commit `3301d02`) is materially incomplete. It lacks the critical **trajectory relabeling pipeline** (raw AgentTraj-L to progress/retention-labeled examples) where the claimed methodological contribution is instantiated. Future adopters cannot apply PABU to new domains without reverse-engineering this opaque preprocessing step.
+- **Incomplete Baseline Comparison:** The evaluation benchmarks PABU only against "full-history" models. It omits essential, budget-matched baselines such as **sliding-window retention** (matched to PABU's 9.5-step budget) or **summarization-based memory** (e.g., MemGPT). Without these, the marginal benefit of the progress-gating mechanism over simpler context compression strategies remains unproven.
+- **Limited Training Attribution:** The granular ablation of the training procedure (outcome vs. progress reward) is conducted only on **ALFWorld**. Given the significant cross-environment variation observed in Figure 6, it is unclear if the architectural contribution generalizes across the other 7 environments.
+- **Lack of Variance Reporting:** All headline results are reported as point estimates without standard deviations or confidence intervals across multiple seeds, which is problematic given the stochastic nature of LLM agent rollouts.

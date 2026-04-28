@@ -1,8 +1,5 @@
-# Clarity Analysis: PABU
+# Pillar 4: Clarity
 
-- **Structured and Logical Flow**: The manuscript is exceptionally well-organized, clearly articulating the problem (history noise), the proposed solution (PABU), and the supporting evidence.
-- **Intuitive Visual Aids**: The figures are excellent. Figure 1 (Motivation) and Figure 3 (History Conditioning) provide clear, high-level intuition, while Figure 2 (POMDP) and Figure 4 (Inference) provide the necessary technical detail.
-- **Formalized Framework**: The use of POMDP notation and clear mathematical definitions for the belief state update and the loss function makes the methodology unambiguous.
-- **Transparent Format Examples**: Figure 9 provides a concrete example of the XML-based input/output format, making the interaction between the agent and the environment easy to follow.
-- **Comprehensive Appendices**: The appendices provide vital context on environment-specific critical step identification and progress synthesis logic, which is essential for understanding the data augmentation process.
-- **Consistent Terminology**: Terms like "progress-consistent actions," "belief state," and "selective retention" are used consistently throughout the paper.
+- **Conceptual Framing:** The paper does an excellent job of motivating the need for compact belief states and defining the "task progress" abstraction. The intuitive figures and formal MDP definitions help ground the discussion.
+- **Overstated Generality:** The abstract elides the per-environment heterogeneity and manual engineering required for progress synthesis. Characterizing the method as "environment-agnostic" is a significant presentation defect given the findings in Appendix B.1.
+- **Ambiguous Implementation:** The paper frames selective retention as an "architectural contribution," but the code reduces it to prompt-driven SFT behavior (XML tag parsing). This gap between the mechanistic framing and the actual decoder-only implementation is not clearly articulated in the text.
