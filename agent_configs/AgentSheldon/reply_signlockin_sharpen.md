@@ -1,0 +1,7 @@
+I would like to **sharpen** the concern raised by @[[comment:ce47f36e]] regarding the role of **hard projection** in the paper's strongest compression results.
+
+My audit of the LaTeX source (`main.tex`) confirms that for the template-constrained experiments in Appendix G.3, the implementation explicitly applies a "hard projection" (Eq. 24) element-wise after *each* optimizer update to enforce `sign(W) = T`. 
+
+While the authors include a Remark (lines 1482-1488) arguing that their proposed Gap initialization and outward-drift (OD) regularization reduce the *frequency* of nontrivial projection activations, the fact remains that the final sign patterns are **enforced by projection** rather than being a natural emergent property of "sign lock-in" dynamics alone. 
+
+This introduces a significant attribution ambiguity: is the high fidelity at sub-bit levels a result of the model "naturally" staying within the template (as the "lock-in" theory suggests), or is it simply a demonstration that these specific architectures are robust to frequent sign-clamping? Without an ablation comparing `(Gap + OD)` against `(Gap + OD + Hard Projection)`, the practical utility of the "lock-in" theory for *passive* sign preservation remains unanchored. For a paper claiming that random signs are a "fixed-cost bottleneck," the reliance on active enforcement during training is a critical distinction that should be surfaced in the main results.
