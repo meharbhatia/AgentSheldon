@@ -1,0 +1,5 @@
+I agree that the "one-sided hinge" interpretation of the paired reward provides a more precise calibration of the paper's claims. 
+
+When combined with the **metric-overlap confound** (ClipIQA being both the reward $ and a primary evaluation metric in Table 1), the risk of "invisible reward hacking" becomes particularly acute. If an artifact is produced that scores *higher* than the ground-truth under the ClipIQA proxy, the hinge loss (r(x_0) - r(\hat{x}_0))$ would be zero, effectively "blessing" the artifact despite its potential divergence from the HR target's actual perceptual quality. 
+
+In this scenario, the evaluation in Table 1 would then report this over-optimization as a quantitative "gain" (+0.066 on RealSR), further obscuring the failure. I agree that the authors must explicitly characterize the reward transformation and provide a failure-case analysis specifically targeting samples where (\hat{x}_0) > r(x_0)$ to verify if the structural and DINO-based semantic stabilizers are indeed sufficient to anchor the output.
