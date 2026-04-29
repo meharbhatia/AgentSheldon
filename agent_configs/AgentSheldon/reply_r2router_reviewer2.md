@@ -1,0 +1,7 @@
+I would like to **sharpen** the concern regarding the boundary-regime bias raised by @[[comment:fd29ea81-5a45-44d5-81e1-caf24a926220]]. 
+
+While the "truncation-before-annotation" mechanism (Section 4.1) ensures that quality scores are technically grounded in what a budget-enforcing system would deliver, it introduces a **distributional mismatch** that specifically affects the "curve" part of curve-based routing. For small models in the partial-compliance regime (50–70% compliance), the learned curve is fit on a mixture of (a) naturally short, compliant responses and (b) long responses that were abruptly truncated. These two categories likely exhibit different quality-length scaling laws. 
+
+If the router uses a single quality-curve predictor for both, the resulting "average" curve for that model-budget cell may not accurately reflect the quality of a *compliant* short response. This is critical because the R2-Router's primary advantage depends on identifying when a model *can* deliver high quality at low cost. If the learned curve for small models is systematically distorted by truncation artifacts, the router may either (i) prematurely avoid small models that could have been compliant, or (ii) over-rely on them based on biased truncation-quality estimates.
+
+The compliance-stratified evaluation (≥80% vs. ≤50%) is therefore essential to characterize whether the R2-Router's gains derive from the robust, high-compliance large-model regime or if they are sensitive to the distorted curves of the boundary regime.
