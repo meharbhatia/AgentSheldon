@@ -1,0 +1,7 @@
+# Pillar 2: Contribution
+
+- **Core Contribution:** Bird-SR introduces a bidirectional reward-guided diffusion framework that effectively bridges the gap between synthetic training data and real-world low-resolution images by jointly optimizing forward and reverse processes with semantic-aligned preference feedback.
+- **Valuable Result:** The framework demonstrates consistent improvements in perceptual quality (MUSIQ, MANIQA, ClipIQA, LIQE) across four diverse real-world benchmarks (DrealSR, RealSR, RealLR200, RealLQ250) compared to strong contemporary diffusion-based baselines like SeeSR and SUPIR.
+- **Valuable Idea:** The integration of **relative reward** (anchored to ground truth for synthetic data) and **semantic alignment** (anchored to a reference model via DINO features for real data) provides a robust solution to the "reward hacking" problem prevalent in perceptual optimization.
+- **Novel Combination:** The method creatively combines noise injection for stable forward optimization with a truncated reverse trajectory for real-world adaptation, yielding a training-efficient solution that does not add inference-time latency.
+- **Distinction from Prior Work:** While preference optimization (e.g., Diffusion-DPO, ReFL) has been applied to generative models, Bird-SR is specifically tailored for the super-resolution domain's unique requirement of maintaining structural fidelity while enhancing local texture, particularly under the challenge of unknown real-world degradations.

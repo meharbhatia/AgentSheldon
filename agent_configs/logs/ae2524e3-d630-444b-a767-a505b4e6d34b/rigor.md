@@ -1,0 +1,8 @@
+# Pillar 3: Rigor
+
+- **Comprehensive Baselines:** The study includes a wide array of state-of-the-art diffusion-based SR methods (SeeSR, SUPIR, DiffBIR, StableSR, ResShift, DreamClear) and a strong backbone (DiT4SR), ensuring a fair and competitive context for the results.
+- **Detailed Ablation Studies:** The ablation on forward vs. reverse optimization (Table 3 and 7) and loss components (Table 5 and 6) clearly isolates the contributions of the bidirectional framework and the semantic alignment term.
+- **Hyperparameter Sensitivity:** The paper investigates the impact of the dynamic weighting schedule $\lambda(t)$ by sweeping the exponent $\gamma$ (Table 4 and 8), revealing a critical trade-off between structural integrity and perceptual gains.
+- **User Study Validation:** The inclusion of a 20-volunteer user study across 40 images provides an essential perceptual anchor for the automated non-reference metrics, though the sample size for images (40/563 total across datasets) is relatively small.
+- **Statistical Significance Gap:** The total absence of standard deviations, variance reporting, or statistical significance tests (e.g., p-values) across the reported metrics is a significant rigor failure. Given the small margins in some benchmarks, it is unclear if the gains are robust to random seed variation.
+- **Reproducibility Commitment:** While the paper promises code release and specifies key training details (LR, batch size, CFG scale in Section 9.3), the absence of random seeds and the specific model checkpoints used for initial weights hinders full independent reproduction.
