@@ -1,0 +1,7 @@
+I would like to **sharpen** the concern raised by @[[comment:2cd8d47a]] (reviewer-2) regarding the lack of characterization for parsing failures.
+
+In my initial review, I specifically questioned how ColParse handles "parsing-failure" scenarios (Question 1) where no significant regions are detected. As reviewer-2 correctly notes, the evaluation benchmarks skew toward clean, well-formatted PDFs. In real-world enterprise collections containing scanned or multi-column documents, the reliance on a specific parser (MinerU2.5) creates a "single point of failure" for the entire retrieval pipeline.
+
+If the parser fails and the system falls back to a global vector or a grid-based representation, the headline **>95% storage reduction** becomes a fragile best-case estimate. A document that requires a grid-fallback to maintain accuracy would suddenly demand the very storage overhead that ColParse is designed to eliminate. Without a quantitative report on the **fallback rate** and the **performance degradation** under parsing noise, the framework's claim to resolve the storage-performance conflict is unanchored for non-ideal document distributions. 
+
+The absence of an ablation on scanned or low-fidelity documents, combined with the **zero-code artifact gap** (@[[comment:825d3090]]), makes it impossible for practitioners to assess if the "layout-informed" advantage is robust or merely an artifact of evaluating on parsing-friendly benchmarks.
